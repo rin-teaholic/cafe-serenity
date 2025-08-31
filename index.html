@@ -6,6 +6,11 @@
     <title>Café Serenity - 心の落ち着く空間</title>
     <meta name="description" content="Café Serenityは、静寂と安らぎを提供するカフェです。上質なコーヒーと温かい空間で、心の休息をお届けします。">
     
+    <!-- Open Graph -->
+    <meta property="og:title" content="Café Serenity - 心の落ち着く空間">
+    <meta property="og:description" content="静寂と安らぎを提供する特別なカフェ体験">
+    <meta property="og:type" content="website">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -25,58 +30,160 @@
         .font-sans {
             font-family: 'Noto Sans JP', sans-serif;
         }
+        
+        /* カスタムアニメーション */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* グラデーション背景 */
+        .hero-gradient {
+            background: linear-gradient(135deg, #f5f1eb 0%, #e7d5c1 50%, #d4b896 100%);
+        }
+        
+        /* グラスモーフィズム効果 */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        /* ホバー効果 */
+        .menu-card {
+            transition: all 0.3s ease;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* パララックス効果のための準備 */
+        .parallax {
+            will-change: transform;
+        }
     </style>
 </head>
 <body class="font-sans bg-stone-50">
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white/90 backdrop-blur-sm z-50 shadow-sm">
+    <nav class="fixed w-full glass z-50 shadow-lg">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
+                    <div class="w-8 h-8 bg-gradient-to-br from-amber-600 to-amber-800 rounded-full mr-3 flex items-center justify-center">
+                        <i class="fas fa-coffee text-white text-sm"></i>
+                    </div>
                     <h1 class="text-2xl font-serif font-semibold text-stone-800">Café Serenity</h1>
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-stone-600 hover:text-stone-800 transition-colors">ホーム</a>
-                    <a href="#menu" class="text-stone-600 hover:text-stone-800 transition-colors">メニュー</a>
-                    <a href="#about" class="text-stone-600 hover:text-stone-800 transition-colors">店舗情報</a>
-                    <a href="#gallery" class="text-stone-600 hover:text-stone-800 transition-colors">ギャラリー</a>
-                    <a href="#contact" class="text-stone-600 hover:text-stone-800 transition-colors">お問い合わせ</a>
+                    <a href="#home" class="text-stone-600 hover:text-amber-600 transition-colors duration-300">ホーム</a>
+                    <a href="#menu" class="text-stone-600 hover:text-amber-600 transition-colors duration-300">メニュー</a>
+                    <a href="#about" class="text-stone-600 hover:text-amber-600 transition-colors duration-300">店舗情報</a>
+                    <a href="#gallery" class="text-stone-600 hover:text-amber-600 transition-colors duration-300">ギャラリー</a>
+                    <a href="#contact" class="text-stone-600 hover:text-amber-600 transition-colors duration-300">お問い合わせ</a>
                 </div>
                 <div class="md:hidden">
-                    <button class="text-stone-600 hover:text-stone-800">
+                    <button id="mobile-menu-btn" class="text-stone-600 hover:text-amber-600">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white/95 backdrop-blur-sm">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#home" class="block px-3 py-2 text-stone-600 hover:text-amber-600">ホーム</a>
+                <a href="#menu" class="block px-3 py-2 text-stone-600 hover:text-amber-600">メニュー</a>
+                <a href="#about" class="block px-3 py-2 text-stone-600 hover:text-amber-600">店舗情報</a>
+                <a href="#gallery" class="block px-3 py-2 text-stone-600 hover:text-amber-600">ギャラリー</a>
+                <a href="#contact" class="block px-3 py-2 text-stone-600 hover:text-amber-600">お問い合わせ</a>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-100 to-stone-200 relative overflow-hidden">
-        <div class="absolute inset-0 bg-black/20"></div>
-        <div class="relative z-10 text-center px-4">
-            <h2 class="text-5xl md:text-7xl font-serif font-light text-stone-800 mb-6" data-aos="fade-up">
-                Café Serenity
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/hero/hero-main.png'); background-size: cover; background-position: center; background-attachment: fixed;">
+        <!-- 背景の装飾要素 -->
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-10 w-32 h-32 bg-white/20 rounded-full blur-xl float"></div>
+            <div class="absolute bottom-20 right-10 w-24 h-24 bg-amber-200/30 rounded-full blur-lg float" style="animation-delay: -2s;"></div>
+            <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-stone-300/20 rounded-full blur-md float" style="animation-delay: -4s;"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <div class="mb-8" data-aos="fade-down">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-600 to-amber-800 rounded-full mb-6 shadow-lg">
+                    <i class="fas fa-coffee text-white text-2xl"></i>
+                </div>
+            </div>
+            
+            <h2 class="text-5xl md:text-7xl font-serif font-light text-stone-800 mb-6 leading-tight" data-aos="fade-up">
+                Café<br>
+                <span class="text-amber-700">Serenity</span>
             </h2>
-            <p class="text-xl md:text-2xl text-stone-600 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="200">
-                静寂と安らぎを提供する、心の落ち着く空間
+            
+            <p class="text-xl md:text-2xl text-stone-600 mb-8 max-w-2xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                静寂と安らぎを提供する<br>
+                <span class="text-amber-700 font-medium">心の落ち着く空間</span>
             </p>
+            
             <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="400">
-                <a href="#menu" class="bg-stone-800 text-white px-8 py-3 rounded-lg hover:bg-stone-700 transition-colors">
-                    メニューを見る
+                <a href="#menu" class="group bg-gradient-to-r from-amber-600 to-amber-700 text-white px-8 py-4 rounded-full hover:from-amber-700 hover:to-amber-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                    <span class="flex items-center justify-center">
+                        メニューを見る
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                    </span>
                 </a>
-                <a href="#contact" class="border border-stone-800 text-stone-800 px-8 py-3 rounded-lg hover:bg-stone-800 hover:text-white transition-colors">
-                    お問い合わせ
+                <a href="#contact" class="glass text-stone-800 px-8 py-4 rounded-full hover:bg-white/40 transition-all duration-300 transform hover:-translate-y-1">
+                    ご予約・お問い合わせ
                 </a>
             </div>
         </div>
     </section>
 
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center p-8 rounded-xl hover:bg-stone-50 transition-colors duration-300" data-aos="fade-up">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-200 rounded-full mb-6">
+                        <i class="fas fa-seedling text-2xl text-amber-700"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-stone-800 mb-4">厳選された豆</h3>
+                    <p class="text-stone-600">世界各地から厳選したスペシャルティコーヒー豆を、丁寧に焙煎してお届けします。</p>
+                </div>
+                
+                <div class="text-center p-8 rounded-xl hover:bg-stone-50 transition-colors duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-200 rounded-full mb-6">
+                        <i class="fas fa-heart text-2xl text-amber-700"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-stone-800 mb-4">心の安らぎ</h3>
+                    <p class="text-stone-600">静かで落ち着いた空間で、忙しい日常を忘れてゆったりとした時間をお過ごしください。</p>
+                </div>
+                
+                <div class="text-center p-8 rounded-xl hover:bg-stone-50 transition-colors duration-300" data-aos="fade-up" data-aos-delay="200">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-100 to-amber-200 rounded-full mb-6">
+                        <i class="fas fa-users text-2xl text-amber-700"></i>
+                    </div>
+                    <h3 class="text-xl font-serif font-semibold text-stone-800 mb-4">温かいサービス</h3>
+                    <p class="text-stone-600">一人ひとりのお客様に寄り添った、心のこもったおもてなしを大切にしています。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Menu Section -->
-    <section id="menu" class="py-20 bg-white">
+    <section id="menu" class="py-20 bg-gradient-to-br from-stone-50 to-amber-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-serif font-semibold text-stone-800 mb-4">メニュー</h2>
+                <h2 class="text-4xl md:text-5xl font-serif font-semibold text-stone-800 mb-4">メニュー</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-700 mx-auto mb-6"></div>
                 <p class="text-lg text-stone-600 max-w-2xl mx-auto">
                     厳選された豆から淹れる一杯と、心を癒す軽食をお楽しみください
                 </p>
@@ -84,79 +191,124 @@
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Coffee -->
-                <div class="bg-stone-50 rounded-lg p-6" data-aos="fade-up">
-                    <div class="text-center mb-4">
-                        <i class="fas fa-coffee text-3xl text-stone-600 mb-3"></i>
-                        <h3 class="text-xl font-serif font-semibold text-stone-800">コーヒー</h3>
+                <div class="menu-card bg-white rounded-xl p-8 shadow-lg" data-aos="fade-up">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-amber-600 to-amber-700 rounded-full mb-4">
+                            <i class="fas fa-coffee text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-semibold text-stone-800">コーヒー</h3>
+                        <div class="w-12 h-0.5 bg-amber-600 mx-auto mt-2"></div>
                     </div>
-                    <ul class="space-y-2 text-stone-600">
-                        <li class="flex justify-between">
-                            <span>ブレンドコーヒー</span>
-                            <span>¥450</span>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between items-center py-2 border-b border-stone-100">
+                            <div>
+                                <span class="font-medium text-stone-800">ブレンドコーヒー</span>
+                                <p class="text-sm text-stone-500">当店自慢のオリジナルブレンド</p>
+                            </div>
+                            <span class="text-lg font-semibold text-amber-700">¥450</span>
                         </li>
-                        <li class="flex justify-between">
-                            <span>エスプレッソ</span>
-                            <span>¥350</span>
+                        <li class="flex justify-between items-center py-2 border-b border-stone-100">
+                            <div>
+                                <span class="font-medium text-stone-800">エスプレッソ</span>
+                                <p class="text-sm text-stone-500">濃厚な味わいのショット</p>
+                            </div>
+                            <span class="text-lg font-semibold text-amber-700">¥350</span>
                         </li>
-                        <li class="flex justify-between">
-                            <span>カフェラテ</span>
-                            <span>¥550</span>
+                        <li class="flex justify-between items-center py-2 border-b border-stone-100">
+                            <div>
+                                <span class="font-medium text-stone-800">カフェラテ</span>
+                                <p class="text-sm text-stone-500">クリーミーなミルクとの調和</p>
+                            </div>
+                            <span class="text-lg font-semibold text-amber-700">¥550</span>
                         </li>
-                        <li class="flex justify-between">
-                            <span>カプチーノ</span>
-                            <span>¥550</span>
+                        <li class="flex justify-between items-center py-2">
+                            <div>
+                                <span class="font-medium text-stone-800">カプチーノ</span>
+                                <p class="text-sm text-stone-500">ふわふわの泡が特徴</p>
+                            </div>
+                            <span class="text-lg font-semibold text-amber-700">¥550</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Tea -->
-                <div class="bg-stone-50 rounded-lg p-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-center mb-4">
-                        <i class="fas fa-mug-hot text-3xl text-stone-600 mb-3"></i>
-                        <h3 class="text-xl font-serif font-semibold text-stone-800">紅茶・その他</h3>
+                <div class="menu-card bg-white rounded-xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-600 to-green-700 rounded-full mb-4">
+                            <i class="fas fa-mug-hot text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-semibold text-stone-800">紅茶・その他</h3>
+                        <div class="w-12 h-0.5 bg-green-600 mx-auto mt-2"></div>
                     </div>
-                    <ul class="space-y-2 text-stone-600">
-                        <li class="flex justify-between">
-                            <span>アールグレイ</span>
-                            <span>¥450</span>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between items-center py-2 border-b border-stone-100">
+                            <div>
+                                <span class="font-medium text-stone-800">アールグレイ</span>
+                                <p class="text-sm text-stone-500">ベルガモットの上品な香り</p>
+                            </div>
+                            <span class="text-lg font-semibold text-green-700">¥450</span>
                         </li>
-                        <li class="flex justify-between">
-                            <span>ダージリン</span>
-                            <span>¥450</span>
+                        <li class="flex justify-between items-center py-2 border-b border-stone-100">
+                            <div>
+                                <span class="font-medium text-stone-800">ダージリン</span>
+                                <p class="text-sm text-stone-500">紅茶のシャンパンと呼ばれる逸品</p>
+                            </div>
+                            <span class="text-lg font-semibold text-green-700">¥450</span>
                         </li>
-                        <li class="flex justify-between">
-                            <span>ハーブティー</span>
-                            <span>¥400</span>
+                        <li class="flex justify-between items-center py-2 border-b border-stone-100">
+                            <div>
+                                <span class="font-medium text-stone-800">ハーブティー</span>
+                                <p class="text-sm text-stone-500">季節のハーブブレンド</p>
+                            </div>
+                            <span class="text-lg font-semibold text-green-700">¥400</span>
                         </li>
-                        <li class="flex justify-between">
-                            <span>ホットチョコレート</span>
-                            <span>¥500</span>
+                        <li class="flex justify-between items-center py-2">
+                            <div>
+                                <span class="font-medium text-stone-800">ホットチョコレート</span>
+                                <p class="text-sm text-stone-500">濃厚なベルギーチョコレート</p>
+                            </div>
+                            <span class="text-lg font-semibold text-green-700">¥500</span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Food -->
-                <div class="bg-stone-50 rounded-lg p-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-center mb-4">
-                        <i class="fas fa-utensils text-3xl text-stone-600 mb-3"></i>
-                        <h3 class="text-xl font-serif font-semibold text-stone-800">軽食</h3>
+                <div class="menu-card bg-white rounded-xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center mb-6">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-rose-600 to-rose-700 rounded-full mb-4">
+                            <i class="fas fa-utensils text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-semibold text-stone-800">軽食</h3>
+                        <div class="w-12 h-0.5 bg-rose-600 mx-auto mt-2"></div>
                     </div>
-                    <ul class="space-y-2 text-stone-600">
-                        <li class="flex justify-between">
-                            <span>サンドイッチ</span>
-                            <span>¥650</span>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between items-center py-2 border-b border-stone-100">
+                            <div>
+                                <span class="font-medium text-stone-800">サンドイッチ</span>
+                                <p class="text-sm text-stone-500">新鮮な野菜とハムのコンビ</p>
+                            </div>
+                            <span class="text-lg font-semibold text-rose-700">¥650</span>
                         </li>
-                        <li class="flex justify-between">
-                            <span>トースト</span>
-                            <span>¥450</span>
+                        <li class="flex justify-between items-center py-2 border-b border-stone-100">
+                            <div>
+                                <span class="font-medium text-stone-800">トースト</span>
+                                <p class="text-sm text-stone-500">自家製ジャム付き</p>
+                            </div>
+                            <span class="text-lg font-semibold text-rose-700">¥450</span>
                         </li>
-                        <li class="flex justify-between">
-                            <span>ケーキセット</span>
-                            <span>¥750</span>
+                        <li class="flex justify-between items-center py-2 border-b border-stone-100">
+                            <div>
+                                <span class="font-medium text-stone-800">ケーキセット</span>
+                                <p class="text-sm text-stone-500">本日のケーキ＋ドリンク</p>
+                            </div>
+                            <span class="text-lg font-semibold text-rose-700">¥750</span>
                         </li>
-                        <li class="flex justify-between">
-                            <span>サラダ</span>
-                            <span>¥550</span>
+                        <li class="flex justify-between items-center py-2">
+                            <div>
+                                <span class="font-medium text-stone-800">サラダ</span>
+                                <p class="text-sm text-stone-500">季節の新鮮野菜</p>
+                            </div>
+                            <span class="text-lg font-semibold text-rose-700">¥550</span>
                         </li>
                     </ul>
                 </div>
@@ -165,51 +317,69 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 bg-stone-100">
+    <section id="about" class="py-20 bg-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div data-aos="fade-right">
-                    <h2 class="text-4xl font-serif font-semibold text-stone-800 mb-6">店舗情報</h2>
-                    <p class="text-lg text-stone-600 mb-8">
+                    <h2 class="text-4xl md:text-5xl font-serif font-semibold text-stone-800 mb-6">店舗情報</h2>
+                    <div class="w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-700 mb-6"></div>
+                    <p class="text-lg text-stone-600 mb-8 leading-relaxed">
                         Café Serenityは、静寂と安らぎを大切にするカフェです。
                         厳選されたコーヒー豆と、心を癒す空間で、
-                        お客様の心の休息をお手伝いします。
+                        お客様の心の休息をお手伝いします。忙しい日常から離れて、
+                        特別なひとときをお過ごしください。
                     </p>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <i class="fas fa-clock text-stone-600 w-6"></i>
-                            <span class="ml-3 text-stone-700">営業時間: 8:00 - 20:00</span>
+                    <div class="space-y-6">
+                        <div class="flex items-center p-4 bg-gradient-to-r from-amber-50 to-amber-100 rounded-lg">
+                            <div class="flex items-center justify-center w-12 h-12 bg-amber-600 rounded-full mr-4">
+                                <i class="fas fa-clock text-white"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-stone-800">営業時間</span>
+                                <p class="text-stone-600">8:00 - 20:00（平日）</p>
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-phone text-stone-600 w-6"></i>
-                            <span class="ml-3 text-stone-700">03-1234-5678</span>
+                        <div class="flex items-center p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-lg">
+                            <div class="flex items-center justify-center w-12 h-12 bg-green-600 rounded-full mr-4">
+                                <i class="fas fa-phone text-white"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-stone-800">お電話</span>
+                                <p class="text-stone-600">03-1234-5678</p>
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-map-marker-alt text-stone-600 w-6"></i>
-                            <span class="ml-3 text-stone-700">東京都渋谷区○○○ 1-2-3</span>
+                        <div class="flex items-center p-4 bg-gradient-to-r from-rose-50 to-rose-100 rounded-lg">
+                            <div class="flex items-center justify-center w-12 h-12 bg-rose-600 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold text-stone-800">所在地</span>
+                                <p class="text-stone-600">東京都渋谷区◯◯◯ 1-2-3</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-stone-200 rounded-lg p-8" data-aos="fade-left">
-                    <h3 class="text-2xl font-serif font-semibold text-stone-800 mb-6">営業時間</h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between">
-                            <span>月曜日 - 金曜日</span>
-                            <span>8:00 - 20:00</span>
+                <div class="bg-gradient-to-br from-stone-100 to-amber-100 rounded-2xl p-8 shadow-lg" data-aos="fade-left">
+                    <h3 class="text-2xl font-serif font-semibold text-stone-800 mb-6">詳細営業時間</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm">
+                            <span class="font-medium text-stone-800">月曜日 - 金曜日</span>
+                            <span class="text-amber-700 font-semibold">8:00 - 20:00</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span>土曜日</span>
-                            <span>9:00 - 21:00</span>
+                        <div class="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm">
+                            <span class="font-medium text-stone-800">土曜日</span>
+                            <span class="text-amber-700 font-semibold">9:00 - 21:00</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span>日曜・祝日</span>
-                            <span>9:00 - 19:00</span>
+                        <div class="flex justify-between items-center p-4 bg-white rounded-lg shadow-sm">
+                            <span class="font-medium text-stone-800">日曜・祝日</span>
+                            <span class="text-amber-700 font-semibold">9:00 - 19:00</span>
                         </div>
                     </div>
-                    <div class="mt-6 p-4 bg-stone-300 rounded-lg">
-                        <p class="text-sm text-stone-700">
-                            ※定休日: 毎週水曜日<br>
-                            ※年末年始は営業時間が変更になる場合があります
+                    <div class="mt-6 p-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-lg">
+                        <p class="text-sm">
+                            <i class="fas fa-info-circle mr-2"></i>
+                            定休日: 毎週水曜日<br>
+                            年末年始は営業時間が変更になる場合があります
                         </p>
                     </div>
                 </div>
@@ -218,50 +388,147 @@
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="py-20 bg-white">
+    <section id="gallery" class="py-20 bg-stone-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-serif font-semibold text-stone-800 mb-4">ギャラリー</h2>
+                <h2 class="text-4xl md:text-5xl font-serif font-semibold text-stone-800 mb-4">ギャラリー</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-700 mx-auto mb-6"></div>
                 <p class="text-lg text-stone-600 max-w-2xl mx-auto">
                     店内の温かい雰囲気と、心を癒す料理の数々をご覧ください
                 </p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-stone-200 rounded-lg h-64 flex items-center justify-center" data-aos="fade-up">
-                    <div class="text-center text-stone-500">
-                        <i class="fas fa-image text-4xl mb-2"></i>
-                        <p>店内写真</p>
+                <div class="group relative rounded-xl h-64 overflow-hidden shadow-lg" data-aos="fade-up">
+                    <img src="images/gallery/interior-atmosphere.png" alt="静寂に包まれたカフェの店内全景、自然光と観葉植物が調和した空間" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <h4 class="font-semibold">静寂に包まれた空間</h4>
+                        <p class="text-sm opacity-90">温かみのあるインテリア</p>
                     </div>
                 </div>
-                <div class="bg-stone-200 rounded-lg h-64 flex items-center justify-center" data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-center text-stone-500">
-                        <i class="fas fa-coffee text-4xl mb-2"></i>
-                        <p>コーヒー写真</p>
+                
+                <div class="group relative rounded-xl h-64 overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <img src="images/gallery/coffee-artisan.png" alt="美しいラテアートが描かれたカプチーノ、湯気が立ち上る様子" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <h4 class="font-semibold">職人が淹れる一杯</h4>
+                        <p class="text-sm opacity-90">熟練バリスタの技術</p>
                     </div>
                 </div>
-                <div class="bg-stone-200 rounded-lg h-64 flex items-center justify-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-center text-stone-500">
-                        <i class="fas fa-utensils text-4xl mb-2"></i>
-                        <p>料理写真</p>
+                
+                <div class="group relative rounded-xl h-64 overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <img src="images/gallery/food-lightmeal.png" alt="新鮮な野菜とハムのサンドイッチ、白いプレートに美しく盛り付けられている" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <h4 class="font-semibold">心を満たす軽やかな食事</h4>
+                        <p class="text-sm opacity-90">新鮮な食材を使用</p>
                     </div>
                 </div>
-                <div class="bg-stone-200 rounded-lg h-64 flex items-center justify-center" data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-center text-stone-500">
-                        <i class="fas fa-leaf text-4xl mb-2"></i>
-                        <p>インテリア写真</p>
+                
+                <div class="group relative rounded-xl h-64 overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                    <img src="images/gallery/plants-nature.png" alt="自然光に照らされた観葉植物、緑豊かなカフェの癒し空間" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <h4 class="font-semibold">自然との調和</h4>
+                        <p class="text-sm opacity-90">植物に囲まれた空間</p>
                     </div>
                 </div>
-                <div class="bg-stone-200 rounded-lg h-64 flex items-center justify-center" data-aos="fade-up" data-aos-delay="400">
-                    <div class="text-center text-stone-500">
-                        <i class="fas fa-cake text-4xl mb-2"></i>
-                        <p>デザート写真</p>
+                
+                <div class="group relative rounded-xl h-64 overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="400">
+                    <img src="images/gallery/dessert-handmade.png" alt="季節のフルーツタルト、パティシエ手作りの美しいデザート" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <h4 class="font-semibold">季節を彩るスイーツ</h4>
+                        <p class="text-sm opacity-90">パティシエ特製</p>
                     </div>
                 </div>
-                <div class="bg-stone-200 rounded-lg h-64 flex items-center justify-center" data-aos="fade-up" data-aos-delay="500">
-                    <div class="text-center text-stone-500">
-                        <i class="fas fa-mug-hot text-4xl mb-2"></i>
-                        <p>紅茶写真</p>
+                
+                <div class="group relative rounded-xl h-64 overflow-hidden shadow-lg" data-aos="fade-up" data-aos-delay="500">
+                    <img src="images/gallery/tea-premium.png" alt="エレガントなティーカップセット、上質な紅茶でのティータイム" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-300"></div>
+                    <div class="absolute bottom-4 left-4 text-white">
+                        <h4 class="font-semibold">上質なティータイム</h4>
+                        <p class="text-sm opacity-90">世界各地から厳選</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="py-20 bg-gradient-to-br from-amber-50 to-stone-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-serif font-semibold text-stone-800 mb-4">お客様の声</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-700 mx-auto mb-6"></div>
+                <p class="text-lg text-stone-600">皆様からいただいた温かいお言葉</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-xl p-8 shadow-lg" data-aos="fade-up">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-stone-600 mb-4 italic">"とても静かで落ち着ける空間です。コーヒーも美味しく、読書にぴったりの場所を見つけました。"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-white font-semibold">A</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-stone-800">A様</p>
+                            <p class="text-sm text-stone-500">会社員</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-stone-600 mb-4 italic">"スタッフの方がとても親切で、心地よい時間を過ごせました。また必ず来たいと思います。"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-white font-semibold">B</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-stone-800">B様</p>
+                            <p class="text-sm text-stone-500">学生</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl p-8 shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-amber-500">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-stone-600 mb-4 italic">"友人との大切な時間を過ごすのに最適な場所です。ケーキも絶品でした！"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gradient-to-br from-rose-400 to-rose-600 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-white font-semibold">C</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-stone-800">C様</p>
+                            <p class="text-sm text-stone-500">主婦</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -269,10 +536,17 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-stone-800 text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="contact" class="py-20 bg-gradient-to-br from-stone-800 to-stone-900 text-white relative overflow-hidden">
+        <!-- 背景装飾 -->
+        <div class="absolute inset-0">
+            <div class="absolute top-10 right-10 w-32 h-32 bg-amber-600/10 rounded-full blur-xl"></div>
+            <div class="absolute bottom-20 left-10 w-24 h-24 bg-amber-600/20 rounded-full blur-lg"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16" data-aos="fade-up">
-                <h2 class="text-4xl font-serif font-semibold mb-4">お問い合わせ</h2>
+                <h2 class="text-4xl md:text-5xl font-serif font-semibold mb-4">お問い合わせ</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-amber-600 to-amber-700 mx-auto mb-6"></div>
                 <p class="text-lg text-stone-300 max-w-2xl mx-auto">
                     ご予約やお問い合わせは、お電話またはフォームからお気軽にお申し付けください
                 </p>
@@ -281,49 +555,113 @@
             <div class="grid md:grid-cols-2 gap-12">
                 <div data-aos="fade-right">
                     <h3 class="text-2xl font-serif font-semibold mb-6">連絡先</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center">
-                            <i class="fas fa-phone text-stone-300 w-6"></i>
-                            <span class="ml-3">03-1234-5678</span>
+                    <div class="space-y-6">
+                        <div class="flex items-center p-4 glass rounded-lg">
+                            <div class="flex items-center justify-center w-12 h-12 bg-amber-600 rounded-full mr-4">
+                                <i class="fas fa-phone text-white"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold">お電話でのご予約</span>
+                                <p class="text-stone-300">03-1234-5678</p>
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-envelope text-stone-300 w-6"></i>
-                            <span class="ml-3">info@cafe-serenity.com</span>
+                        
+                        <div class="flex items-center p-4 glass rounded-lg">
+                            <div class="flex items-center justify-center w-12 h-12 bg-green-600 rounded-full mr-4">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold">メールアドレス</span>
+                                <p class="text-stone-300">info@cafe-serenity.com</p>
+                            </div>
                         </div>
-                        <div class="flex items-center">
-                            <i class="fas fa-map-marker-alt text-stone-300 w-6"></i>
-                            <span class="ml-3">東京都渋谷区○○○ 1-2-3</span>
+                        
+                        <div class="flex items-center p-4 glass rounded-lg">
+                            <div class="flex items-center justify-center w-12 h-12 bg-rose-600 rounded-full mr-4">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <span class="font-semibold">所在地</span>
+                                <p class="text-stone-300">東京都渋谷区◯◯◯ 1-2-3</p>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="mt-8">
-                        <h4 class="text-lg font-semibold mb-4">アクセス</h4>
-                        <p class="text-stone-300">
-                            渋谷駅から徒歩10分<br>
-                            原宿駅から徒歩15分
-                        </p>
+                    <div class="mt-8 p-6 glass rounded-lg">
+                        <h4 class="text-lg font-semibold mb-4 flex items-center">
+                            <i class="fas fa-route mr-2 text-amber-400"></i>
+                            アクセス
+                        </h4>
+                        <div class="space-y-2 text-stone-300">
+                            <p class="flex items-center">
+                                <i class="fas fa-train mr-2 text-amber-400"></i>
+                                渋谷駅から徒歩10分
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fas fa-train mr-2 text-amber-400"></i>
+                                原宿駅から徒歩15分
+                            </p>
+                            <p class="flex items-center">
+                                <i class="fas fa-parking mr-2 text-amber-400"></i>
+                                近隣にコインパーキングあり
+                            </p>
+                        </div>
                     </div>
                 </div>
                 
                 <div data-aos="fade-left">
-                    <form class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">お名前</label>
-                            <input type="text" class="w-full px-4 py-2 rounded-lg bg-stone-700 border border-stone-600 text-white focus:outline-none focus:border-stone-400">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">メールアドレス</label>
-                            <input type="email" class="w-full px-4 py-2 rounded-lg bg-stone-700 border border-stone-600 text-white focus:outline-none focus:border-stone-400">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">お問い合わせ内容</label>
-                            <textarea rows="4" class="w-full px-4 py-2 rounded-lg bg-stone-700 border border-stone-600 text-white focus:outline-none focus:border-stone-400"></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-stone-600 text-white py-3 rounded-lg hover:bg-stone-500 transition-colors">
-                            送信する
-                        </button>
-                    </form>
+                    <div class="glass rounded-xl p-8">
+                        <h3 class="text-2xl font-serif font-semibold mb-6">お問い合わせフォーム</h3>
+                        <form class="space-y-6" id="contact-form">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">お名前 <span class="text-amber-400">*</span></label>
+                                <input type="text" required class="w-full px-4 py-3 rounded-lg bg-stone-700/50 border border-stone-600 text-white placeholder-stone-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all duration-300" placeholder="山田太郎">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">メールアドレス <span class="text-amber-400">*</span></label>
+                                <input type="email" required class="w-full px-4 py-3 rounded-lg bg-stone-700/50 border border-stone-600 text-white placeholder-stone-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all duration-300" placeholder="example@email.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">お問い合わせ種別</label>
+                                <select class="w-full px-4 py-3 rounded-lg bg-stone-700/50 border border-stone-600 text-white focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all duration-300">
+                                    <option>一般的なお問い合わせ</option>
+                                    <option>ご予約について</option>
+                                    <option>貸切について</option>
+                                    <option>その他</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">お問い合わせ内容 <span class="text-amber-400">*</span></label>
+                                <textarea rows="4" required class="w-full px-4 py-3 rounded-lg bg-stone-700/50 border border-stone-600 text-white placeholder-stone-400 focus:outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-400/20 transition-all duration-300" placeholder="お問い合わせ内容をご記入ください"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-gradient-to-r from-amber-600 to-amber-700 text-white py-4 rounded-lg hover:from-amber-700 hover:to-amber-800 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg font-semibold">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                送信する
+                            </button>
+                        </form>
+                    </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-amber-600 to-amber-700 text-white">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-serif font-semibold mb-4" data-aos="fade-up">
+                今すぐご予約を
+            </h2>
+            <p class="text-xl mb-8 opacity-90" data-aos="fade-up" data-aos-delay="100">
+                特別なひとときを、Café Serenityで
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center" data-aos="fade-up" data-aos-delay="200">
+                <a href="tel:03-1234-5678" class="bg-white text-amber-700 px-8 py-4 rounded-full hover:bg-stone-100 transition-all duration-300 font-semibold transform hover:-translate-y-1 hover:shadow-lg">
+                    <i class="fas fa-phone mr-2"></i>
+                    電話で予約
+                </a>
+                <a href="#contact" class="border-2 border-white text-white px-8 py-4 rounded-full hover:bg-white hover:text-amber-700 transition-all duration-300 font-semibold transform hover:-translate-y-1">
+                    フォームで予約
+                </a>
             </div>
         </div>
     </section>
@@ -331,34 +669,184 @@
     <!-- Footer -->
     <footer class="bg-stone-900 text-white py-12">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h3 class="text-2xl font-serif font-semibold mb-4">Café Serenity</h3>
-                <p class="text-stone-400 mb-6">静寂と安らぎを提供する、心の落ち着く空間</p>
-                <div class="flex justify-center space-x-6 mb-6">
-                    <a href="#" class="text-stone-400 hover:text-white transition-colors">
-                        <i class="fab fa-instagram text-xl"></i>
-                    </a>
-                    <a href="#" class="text-stone-400 hover:text-white transition-colors">
-                        <i class="fab fa-facebook text-xl"></i>
-                    </a>
-                    <a href="#" class="text-stone-400 hover:text-white transition-colors">
-                        <i class="fab fa-twitter text-xl"></i>
-                    </a>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-amber-600 to-amber-800 rounded-full mr-3 flex items-center justify-center">
+                            <i class="fas fa-coffee text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-serif font-semibold">Café Serenity</h3>
+                    </div>
+                    <p class="text-stone-400 mb-6 leading-relaxed">
+                        静寂と安らぎを提供する、心の落ち着く空間。
+                        忙しい日常から離れて、特別なひとときをお過ごしください。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center text-stone-400 hover:text-white hover:bg-amber-600 transition-all duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center text-stone-400 hover:text-white hover:bg-amber-600 transition-all duration-300">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center text-stone-400 hover:text-white hover:bg-amber-600 transition-all duration-300">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-stone-800 rounded-full flex items-center justify-center text-stone-400 hover:text-white hover:bg-amber-600 transition-all duration-300">
+                            <i class="fab fa-google"></i>
+                        </a>
+                    </div>
                 </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">営業時間</h4>
+                    <div class="space-y-2 text-stone-400 text-sm">
+                        <p>月-金: 8:00-20:00</p>
+                        <p>土: 9:00-21:00</p>
+                        <p>日・祝: 9:00-19:00</p>
+                        <p class="text-amber-400">定休日: 水曜日</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">クイックリンク</h4>
+                    <div class="space-y-2">
+                        <a href="#menu" class="block text-stone-400 hover:text-amber-400 transition-colors text-sm">メニュー</a>
+                        <a href="#about" class="block text-stone-400 hover:text-amber-400 transition-colors text-sm">店舗情報</a>
+                        <a href="#gallery" class="block text-stone-400 hover:text-amber-400 transition-colors text-sm">ギャラリー</a>
+                        <a href="#contact" class="block text-stone-400 hover:text-amber-400 transition-colors text-sm">お問い合わせ</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-stone-800 mt-8 pt-8 text-center">
                 <p class="text-sm text-stone-500">
-                    © 2024 Café Serenity. All rights reserved.
+                    © 2025 Café Serenity. All rights reserved. | 
+                    <a href="#" class="hover:text-amber-400 transition-colors">プライバシーポリシー</a> | 
+                    <a href="#" class="hover:text-amber-400 transition-colors">利用規約</a>
                 </p>
             </div>
         </div>
     </footer>
 
+    <!-- スクロールトップボタン -->
+    <button id="scroll-top" class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-br from-amber-600 to-amber-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 opacity-0 invisible z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- AOS Animation Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // AOS初期化
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
-            once: true
+            once: true,
+            offset: 100
+        });
+
+        // モバイルメニュー
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // モバイルメニューを閉じる
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // スクロールトップボタン
+        const scrollTopBtn = document.getElementById('scroll-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.remove('opacity-0', 'invisible');
+                scrollTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                scrollTopBtn.classList.add('opacity-0', 'invisible');
+                scrollTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // コンタクトフォーム
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 送信アニメーション
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>送信中...';
+            submitBtn.disabled = true;
+            
+            // 2秒後に完了メッセージ（実際の実装では実際の送信処理を行う）
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fas fa-check mr-2"></i>送信完了！';
+                submitBtn.classList.remove('from-amber-600', 'to-amber-700');
+                submitBtn.classList.add('from-green-600', 'to-green-700');
+                
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('from-green-600', 'to-green-700');
+                    submitBtn.classList.add('from-amber-600', 'to-amber-700');
+                    this.reset();
+                }, 2000);
+            }, 2000);
+        });
+
+        // パララックス効果（簡易版）
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+            
+            parallaxElements.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // ナビゲーションのアクティブ状態
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.pageYOffset >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-amber-600');
+                link.classList.add('text-stone-600');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.remove('text-stone-600');
+                    link.classList.add('text-amber-600');
+                }
+            });
         });
     </script>
 </body>
