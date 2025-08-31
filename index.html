@@ -319,23 +319,45 @@
                 </div>
                 
                 <div data-aos="fade-left">
-                    <form class="space-y-4">
+                    <form id="contact-form" class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium mb-2">お名前</label>
-                            <input type="text" class="w-full px-4 py-2 rounded-lg bg-stone-700 border border-stone-600 text-white focus:outline-none focus:border-stone-400">
+                            <label class="block text-sm font-medium mb-2">お名前 <span class="text-red-400">*</span></label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-2 rounded-lg bg-stone-700 border border-stone-600 text-white focus:outline-none focus:border-stone-400">
+                            <div id="name-error" class="text-red-400 text-sm mt-1 hidden"></div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">メールアドレス</label>
-                            <input type="email" class="w-full px-4 py-2 rounded-lg bg-stone-700 border border-stone-600 text-white focus:outline-none focus:border-stone-400">
+                            <label class="block text-sm font-medium mb-2">メールアドレス <span class="text-red-400">*</span></label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded-lg bg-stone-700 border border-stone-600 text-white focus:outline-none focus:border-stone-400">
+                            <div id="email-error" class="text-red-400 text-sm mt-1 hidden"></div>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium mb-2">お問い合わせ内容</label>
-                            <textarea rows="4" class="w-full px-4 py-2 rounded-lg bg-stone-700 border border-stone-600 text-white focus:outline-none focus:border-stone-400"></textarea>
+                            <label class="block text-sm font-medium mb-2">お問い合わせ内容 <span class="text-red-400">*</span></label>
+                            <textarea id="message" name="message" rows="4" required class="w-full px-4 py-2 rounded-lg bg-stone-700 border border-stone-600 text-white focus:outline-none focus:border-stone-400"></textarea>
+                            <div id="message-error" class="text-red-400 text-sm mt-1 hidden"></div>
                         </div>
-                        <button type="submit" class="w-full bg-stone-600 text-white py-3 rounded-lg hover:bg-stone-500 transition-colors">
-                            送信する
+                        <button type="submit" id="submit-btn" class="w-full bg-stone-600 text-white py-3 rounded-lg hover:bg-stone-500 transition-colors">
+                            <span id="submit-text">送信する</span>
+                            <span id="submit-loading" class="hidden">
+                                <i class="fas fa-spinner fa-spin mr-2"></i>送信中...
+                            </span>
                         </button>
                     </form>
+                    
+                    <!-- Success Message -->
+                    <div id="success-message" class="hidden mt-4 p-4 bg-green-600 text-white rounded-lg">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>お問い合わせを送信しました。ありがとうございます。</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Error Message -->
+                    <div id="error-message" class="hidden mt-4 p-4 bg-red-600 text-white rounded-lg">
+                        <div class="flex items-center">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            <span id="error-text">エラーが発生しました。もう一度お試しください。</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -405,6 +427,141 @@
                 if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
                     mobileMenu.classList.add('hidden');
                     menuIcon.className = 'fas fa-bars text-xl';
+                }
+            });
+
+            // Contact Form Functionality
+            const contactForm = document.getElementById('contact-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const submitText = document.getElementById('submit-text');
+            const submitLoading = document.getElementById('submit-loading');
+            const successMessage = document.getElementById('success-message');
+            const errorMessage = document.getElementById('error-message');
+            const errorText = document.getElementById('error-text');
+
+            // Validation functions
+            function showError(fieldId, message) {
+                const errorDiv = document.getElementById(fieldId + '-error');
+                errorDiv.textContent = message;
+                errorDiv.classList.remove('hidden');
+                document.getElementById(fieldId).classList.add('border-red-500');
+            }
+
+            function hideError(fieldId) {
+                const errorDiv = document.getElementById(fieldId + '-error');
+                errorDiv.classList.add('hidden');
+                document.getElementById(fieldId).classList.remove('border-red-500');
+            }
+
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            function validateForm() {
+                let isValid = true;
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+
+                // Reset all errors
+                hideError('name');
+                hideError('email');
+                hideError('message');
+
+                // Validate name
+                if (name.length < 2) {
+                    showError('name', 'お名前は2文字以上で入力してください');
+                    isValid = false;
+                }
+
+                // Validate email
+                if (!validateEmail(email)) {
+                    showError('email', '有効なメールアドレスを入力してください');
+                    isValid = false;
+                }
+
+                // Validate message
+                if (message.length < 10) {
+                    showError('message', 'お問い合わせ内容は10文字以上で入力してください');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            function showLoading() {
+                submitBtn.disabled = true;
+                submitText.classList.add('hidden');
+                submitLoading.classList.remove('hidden');
+            }
+
+            function hideLoading() {
+                submitBtn.disabled = false;
+                submitText.classList.remove('hidden');
+                submitLoading.classList.add('hidden');
+            }
+
+            function showSuccess() {
+                successMessage.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+                contactForm.reset();
+            }
+
+            function showError(message) {
+                errorText.textContent = message;
+                errorMessage.classList.remove('hidden');
+                successMessage.classList.add('hidden');
+            }
+
+            // Form submission
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (!validateForm()) {
+                    return;
+                }
+
+                showLoading();
+
+                // Simulate form submission (replace with actual API call)
+                setTimeout(function() {
+                    hideLoading();
+                    
+                    // Simulate success (90% success rate for demo)
+                    if (Math.random() > 0.1) {
+                        showSuccess();
+                    } else {
+                        showError('送信に失敗しました。しばらく時間をおいてから再度お試しください。');
+                    }
+                }, 2000);
+            });
+
+            // Real-time validation
+            document.getElementById('name').addEventListener('blur', function() {
+                const name = this.value.trim();
+                if (name.length > 0 && name.length < 2) {
+                    showError('name', 'お名前は2文字以上で入力してください');
+                } else {
+                    hideError('name');
+                }
+            });
+
+            document.getElementById('email').addEventListener('blur', function() {
+                const email = this.value.trim();
+                if (email.length > 0 && !validateEmail(email)) {
+                    showError('email', '有効なメールアドレスを入力してください');
+                } else {
+                    hideError('email');
+                }
+            });
+
+            document.getElementById('message').addEventListener('blur', function() {
+                const message = this.value.trim();
+                if (message.length > 0 && message.length < 10) {
+                    showError('message', 'お問い合わせ内容は10文字以上で入力してください');
+                } else {
+                    hideError('message');
                 }
             });
         });
