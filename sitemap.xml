@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <!-- ホームページ -->
+    <url>
+        <loc>https://cafe-serenity.com/</loc>
+        <lastmod>2025-01-01T00:00:00+09:00</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://cafe-serenity.com/images/hero/hero-main.png</image:loc>
+            <image:title>Café Serenity - 店内の様子</image:title>
+            <image:caption>静寂と安らぎを提供するカフェの店内</image:caption>
+        </image:image>
+    </url>
+    
+    <!-- メニューセクション -->
+    <url>
+        <loc>https://cafe-serenity.com/#menu</loc>
+        <lastmod>2025-01-01T00:00:00+09:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- アバウトセクション -->
+    <url>
+        <loc>https://cafe-serenity.com/#about</loc>
+        <lastmod>2025-01-01T00:00:00+09:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    
+    <!-- ギャラリーセクション -->
+    <url>
+        <loc>https://cafe-serenity.com/#gallery</loc>
+        <lastmod>2025-01-01T00:00:00+09:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://cafe-serenity.com/images/gallery/interior-atmosphere.png</image:loc>
+            <image:title>静寂に包まれた空間</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://cafe-serenity.com/images/gallery/coffee-artisan.png</image:loc>
+            <image:title>職人が淹れる一杯</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://cafe-serenity.com/images/gallery/food-lightmeal.png</image:loc>
+            <image:title>心を満たす軽やかな食事</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://cafe-serenity.com/images/gallery/plants-nature.png</image:loc>
+            <image:title>自然との調和</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://cafe-serenity.com/images/gallery/dessert-handmade.png</image:loc>
+            <image:title>季節を彩るスイーツ</image:title>
+        </image:image>
+        <image:image>
+            <image:loc>https://cafe-serenity.com/images/gallery/tea-premium.png</image:loc>
+            <image:title>上質なティータイム</image:title>
+        </image:image>
+    </url>
+    
+    <!-- コンタクトセクション -->
+    <url>
+        <loc>https://cafe-serenity.com/#contact</loc>
+        <lastmod>2025-01-01T00:00:00+09:00</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+</urlset>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - ページが見つかりません | Café Serenity</title>
+    <meta name="description" content="お探しのページが見つかりませんでした。">
+    <meta name="robots" content="noindex, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/icons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="96x96" href="/images/icons/favicon-96x96.png">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-sans {
+            font-family: 'Noto Sans JP', sans-serif;
+        }
+        
+        /* 404アニメーション */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        /* グラデーション背景 */
+        .gradient-bg {
+            background: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 50%, #e7e5e4 100%);
+        }
+    </style>
+</head>
+<body class="font-sans gradient-bg min-h-screen flex items-center justify-center">
+    <div class="text-center px-6 max-w-2xl mx-auto">
+        <!-- 404アイコン -->
+        <div class="mb-12 float">
+            <svg class="w-32 h-32 mx-auto text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+        </div>
+        
+        <!-- 404タイトル -->
+        <h1 class="text-9xl font-serif font-light text-stone-300 mb-4">404</h1>
+        
+        <h2 class="text-3xl font-serif font-light text-stone-800 mb-8">ページが見つかりません</h2>
+        
+        <p class="text-lg text-stone-600 mb-12 leading-relaxed">
+            申し訳ございません。お探しのページは移動または削除された可能性があります。<br>
+            以下のリンクから、お探しの情報をご確認ください。
+        </p>
+        
+        <!-- ナビゲーションボタン -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/" class="px-8 py-3 bg-stone-800 text-white hover:bg-stone-700 transition-colors duration-300 text-lg">
+                ホームへ戻る
+            </a>
+            <a href="/#menu" class="px-8 py-3 border border-stone-800 text-stone-800 hover:bg-stone-800 hover:text-white transition-all duration-300 text-lg">
+                メニューを見る
+            </a>
+        </div>
+        
+        <!-- 提案セクション -->
+        <div class="mt-16 pt-16 border-t border-stone-300">
+            <h3 class="text-xl font-medium text-stone-700 mb-6">お探しの情報はこちらかもしれません</h3>
+            <div class="grid sm:grid-cols-2 gap-6 text-left max-w-md mx-auto">
+                <a href="/#about" class="group">
+                    <div class="p-4 bg-white hover:bg-stone-50 transition-colors duration-300 border border-stone-200">
+                        <h4 class="font-medium text-stone-800 group-hover:text-stone-900 mb-1">店舗情報</h4>
+                        <p class="text-sm text-stone-600">営業時間・アクセス</p>
+                    </div>
+                </a>
+                <a href="/#gallery" class="group">
+                    <div class="p-4 bg-white hover:bg-stone-50 transition-colors duration-300 border border-stone-200">
+                        <h4 class="font-medium text-stone-800 group-hover:text-stone-900 mb-1">ギャラリー</h4>
+                        <p class="text-sm text-stone-600">店内の様子</p>
+                    </div>
+                </a>
+                <a href="/#contact" class="group">
+                    <div class="p-4 bg-white hover:bg-stone-50 transition-colors duration-300 border border-stone-200">
+                        <h4 class="font-medium text-stone-800 group-hover:text-stone-900 mb-1">ご予約</h4>
+                        <p class="text-sm text-stone-600">お問い合わせフォーム</p>
+                    </div>
+                </a>
+                <a href="/#menu" class="group">
+                    <div class="p-4 bg-white hover:bg-stone-50 transition-colors duration-300 border border-stone-200">
+                        <h4 class="font-medium text-stone-800 group-hover:text-stone-900 mb-1">メニュー</h4>
+                        <p class="text-sm text-stone-600">お食事・ドリンク</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 5秒後に自動的にホームページへリダイレクト（オプション）
+        // setTimeout(() => {
+        //     window.location.href = '/';
+        // }, 5000);
+    </script>
+</body>
+</html>

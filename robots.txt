@@ -1,0 +1,45 @@
+# Café Serenity - robots.txt
+# https://cafe-serenity.com/
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*.xml$
+Disallow: /offline.html
+
+# クロール速度の制限
+Crawl-delay: 1
+
+# サイトマップの場所
+Sitemap: https://cafe-serenity.com/sitemap.xml
+
+# 主要な検索エンジンボット向けの設定
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# 画像検索ボット
+User-agent: Googlebot-Image
+Allow: /images/
+Disallow: /images/icons/
+
+# 悪意のあるボットをブロック
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
