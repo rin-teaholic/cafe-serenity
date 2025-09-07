@@ -58,9 +58,16 @@
         
         /* グラスモーフィズム効果 */
         .glass {
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.35);
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* ナビゲーション専用のより白い背景 */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
         }
         
         /* ホバー効果 */
@@ -98,31 +105,127 @@
             letter-spacing: -0.02em;
         }
         
+        /* ヒーロー背景画像 */
+        .hero-bg {
+            background-image: url('images/hero/hero-main.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(0, 0, 0, 0.5) 0%,
+                rgba(0, 0, 0, 0.3) 30%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(255, 255, 255, 0.1) 70%,
+                rgba(255, 255, 255, 0.2) 100%
+            );
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* ヒーローテキストの影効果 */
+        .hero-title {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-subtitle {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.3);
+            font-weight: 500;
+        }
+        
+        .hero-subtitle-strong {
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.4);
+            font-weight: 600;
+        }
+        
+        /* Serenity専用のベージュ色 */
+        .serenity-beige {
+            color: #f0ebe5 !important;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* モバイル対応の調整 */
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-attachment: scroll;
+            }
+            
+            .hero-bg::before {
+                background: linear-gradient(
+                    135deg,
+                    rgba(0, 0, 0, 0.5) 0%,
+                    rgba(0, 0, 0, 0.3) 30%,
+                    rgba(255, 255, 255, 0.1) 70%,
+                    rgba(255, 255, 255, 0.2) 100%
+                );
+            }
+            
+            .hero-title {
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            }
+            
+            .hero-subtitle {
+                text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 0, 0, 0.5);
+            }
+            
+            .hero-subtitle-strong {
+                text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.9), 0 0 30px rgba(0, 0, 0, 0.6);
+            }
+            
+            .serenity-beige {
+                color: #f0ebe5 !important;
+                text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.3);
+            }
+        }
+        
         /* セクションタイトル */
         .section-title {
             font-size: clamp(2.5rem, 6vw, 4rem);
             line-height: 1.1;
             letter-spacing: -0.01em;
         }
+        
+        /* ヘッダーナビゲーションの視認性向上 */
+        .nav-link {
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+        }
+        
+        .nav-link:hover {
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 1);
+        }
     </style>
 </head>
 <body class="font-sans bg-stone-50">
         <!-- Navigation -->
-    <nav class="fixed w-full glass z-50">
+    <nav class="fixed w-full nav-glass z-50">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center py-6">
                 <div class="flex items-center flex-shrink-0">
-                    <h1 class="text-3xl font-serif font-light text-stone-800 tracking-wide">Café Serenity</h1>
+                    <h1 class="nav-link text-3xl font-serif font-light text-stone-800 tracking-wide">Café Serenity</h1>
                 </div>
                 <div class="hidden md:flex space-x-12">
-                    <a href="#home" class="text-stone-700 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase">Home</a>
-                    <a href="#menu" class="text-stone-700 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase">Menu</a>
-                    <a href="#about" class="text-stone-700 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase">About</a>
-                    <a href="#gallery" class="text-stone-700 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase">Gallery</a>
-                    <a href="#contact" class="text-stone-700 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase">Contact</a>
+                    <a href="#home" class="nav-link text-stone-800 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase font-medium">Home</a>
+                    <a href="#menu" class="nav-link text-stone-800 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase font-medium">Menu</a>
+                    <a href="#about" class="nav-link text-stone-800 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase font-medium">About</a>
+                    <a href="#gallery" class="nav-link text-stone-800 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase font-medium">Gallery</a>
+                    <a href="#contact" class="nav-link text-stone-800 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase font-medium">Contact</a>
                 </div>
                 <div class="md:hidden flex-shrink-0">
-                    <button id="mobile-menu-btn" class="text-stone-700 hover:text-stone-900 p-2">
+                    <button id="mobile-menu-btn" class="nav-link text-stone-800 hover:text-stone-900 p-2">
                         <i class="fas fa-bars text-xl"></i>
                     </button>
                 </div>
@@ -130,40 +233,40 @@
         </div>
         
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden hidden glass w-full">
+        <div id="mobile-menu" class="md:hidden hidden nav-glass w-full">
             <div class="px-6 pt-4 pb-6 space-y-4">
-                <a href="#home" class="block text-stone-700 hover:text-stone-900 text-sm tracking-wide uppercase py-2">Home</a>
-                <a href="#menu" class="block text-stone-700 hover:text-stone-900 text-sm tracking-wide uppercase py-2">Menu</a>
-                <a href="#about" class="block text-stone-700 hover:text-stone-900 text-sm tracking-wide uppercase py-2">About</a>
-                <a href="#gallery" class="block text-stone-700 hover:text-stone-900 text-sm tracking-wide uppercase py-2">Gallery</a>
-                <a href="#contact" class="block text-stone-700 hover:text-stone-900 text-sm tracking-wide uppercase py-2">Contact</a>
+                <a href="#home" class="nav-link block text-stone-800 hover:text-stone-900 text-sm tracking-wide uppercase py-2 font-medium">Home</a>
+                <a href="#menu" class="nav-link block text-stone-800 hover:text-stone-900 text-sm tracking-wide uppercase py-2 font-medium">Menu</a>
+                <a href="#about" class="nav-link block text-stone-800 hover:text-stone-900 text-sm tracking-wide uppercase py-2 font-medium">About</a>
+                <a href="#gallery" class="nav-link block text-stone-800 hover:text-stone-900 text-sm tracking-wide uppercase py-2 font-medium">Gallery</a>
+                <a href="#contact" class="nav-link block text-stone-800 hover:text-stone-900 text-sm tracking-wide uppercase py-2 font-medium">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden bg-white">
-        <div class="relative z-10 text-center px-6 max-w-6xl mx-auto">
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden hero-bg">
+        <div class="hero-content relative z-10 text-center px-6 max-w-6xl mx-auto">
             <div class="mb-16" data-aos="fade-down">
-                <h2 class="hero-title font-serif font-light text-stone-800 mb-8 leading-none">
-                    Café<br>
-                    <span class="text-stone-700">Serenity</span>
+                <h2 class="hero-title font-serif font-light mb-8 leading-none">
+                    <span class="serenity-beige">Café</span><br>
+                    <span class="text-white">Serenity</span>
                 </h2>
             </div>
             
-            <p class="text-xl md:text-2xl text-stone-700 mb-12 max-w-3xl mx-auto leading-relaxed font-light" data-aos="fade-up" data-aos-delay="200">
-                <span class="font-normal">静寂と安らぎを提供する</span><br>
-                <span class="text-stone-800 font-normal">心の落ち着く空間</span>
+            <p class="hero-subtitle text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+                <span class="hero-subtitle-strong">静寂と安らぎを提供する</span><br>
+                <span class="hero-subtitle-strong text-stone-50">心の落ち着く空間</span>
             </p>
             
             <div class="flex flex-col sm:flex-row gap-6 justify-center" data-aos="fade-up" data-aos-delay="400">
-                <a href="#menu" class="minimal-btn px-12 py-4 text-lg tracking-wide uppercase">
+                <a href="#menu" class="px-12 py-4 text-lg tracking-wide uppercase bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 hover:border-white/50 transition-all duration-300">
                     <span class="flex items-center justify-center">
                         Menu
                         <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
                     </span>
                 </a>
-                <a href="#contact" class="px-12 py-4 text-lg tracking-wide uppercase text-stone-700 hover:text-stone-900 transition-all duration-300">
+                <a href="#contact" class="px-12 py-4 text-lg tracking-wide uppercase bg-stone-800/80 backdrop-blur-sm text-white hover:bg-stone-700/90 hover:text-white transition-all duration-300 border border-stone-600/50 hover:border-stone-500/70 shadow-lg hover:shadow-xl">
                     Reserve
                 </a>
             </div>
