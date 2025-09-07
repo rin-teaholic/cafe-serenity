@@ -88,11 +88,11 @@
 
 /* Menuボタン */
 .hero-btn-menu {
-    background: rgba(0, 0, 0, 0.4);
-    border: 2px solid rgba(255, 255, 255, 0.6);
-    color: white;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(41, 37, 36, 0.3);
+    color: #292524;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    text-shadow: none;
 }
 
 .hero-btn-menu::before {
@@ -102,16 +102,16 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(41, 37, 36, 0.1), transparent);
     transition: left 0.6s ease;
 }
 
 .hero-btn-menu:hover {
-    background: rgba(0, 0, 0, 0.5);
-    border-color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(41, 37, 36, 0.5);
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    text-shadow: none;
 }
 
 .hero-btn-menu:hover::before {
@@ -125,10 +125,10 @@
 
 /* Reserveボタン */
 .hero-btn-reserve {
-    background: rgba(41, 37, 36, 0.85);
-    border: 2px solid rgba(120, 113, 108, 0.6);
-    color: white;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(41, 37, 36, 0.3);
+    color: #292524;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .hero-btn-reserve::before {
@@ -138,15 +138,15 @@
     left: 0;
     width: 0;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(135deg, rgba(41, 37, 36, 0.1), rgba(41, 37, 36, 0.05));
     transition: width 0.5s ease;
 }
 
 .hero-btn-reserve:hover {
-    background: rgba(41, 37, 36, 0.95);
-    border-color: rgba(120, 113, 108, 0.8);
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(41, 37, 36, 0.5);
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .hero-btn-reserve:hover::before {
@@ -573,6 +573,62 @@ select:focus {
     .hero-btn i {
         font-size: 0.75rem;
         margin-left: 0.5rem;
+    }
+    
+    /* モバイルメニューの縦並びレイアウト修正 */
+    #mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(168, 162, 158, 0.2);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        display: none; /* デフォルトで非表示 */
+    }
+    
+    /* モバイルメニューが表示されている時のスタイル */
+    #mobile-menu:not(.hidden) {
+        display: block !important;
+        animation: slideDown 0.3s ease-out;
+    }
+    
+    #mobile-menu .space-y-4 {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+    
+    #mobile-menu .nav-link {
+        display: block !important;
+        width: 100% !important;
+        text-align: left !important;
+        padding: 0.75rem 0 !important;
+        border-bottom: 1px solid rgba(168, 162, 158, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    #mobile-menu .nav-link:last-child {
+        border-bottom: none;
+    }
+    
+    #mobile-menu .nav-link:hover {
+        background: rgba(168, 162, 158, 0.05);
+        padding-left: 0.5rem;
+    }
+    
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 }
 
