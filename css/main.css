@@ -27,6 +27,14 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.nav-glass {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(168, 162, 158, 0.2);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 /* ホバー効果 */
 .menu-card {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
@@ -49,9 +57,156 @@
 .parallax {
     will-change: transform;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(var(--parallax-y, 0px));
 }
 
-/* ミニマルなボタンスタイル */
+/* リップルアニメーション */
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* ヒーローボタンのスタイル */
+.hero-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Menuボタン */
+.hero-btn-menu {
+    background: rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: white;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.hero-btn-menu::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.6s ease;
+}
+
+.hero-btn-menu:hover {
+    background: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.hero-btn-menu:hover::before {
+    left: 100%;
+}
+
+.hero-btn-menu:active {
+    transform: translateY(-1px) scale(0.98);
+    transition: all 0.1s ease;
+}
+
+/* Reserveボタン */
+.hero-btn-reserve {
+    background: rgba(41, 37, 36, 0.85);
+    border: 2px solid rgba(120, 113, 108, 0.6);
+    color: white;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.hero-btn-reserve::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    transition: width 0.5s ease;
+}
+
+.hero-btn-reserve:hover {
+    background: rgba(41, 37, 36, 0.95);
+    border-color: rgba(120, 113, 108, 0.8);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.hero-btn-reserve:hover::before {
+    width: 100%;
+}
+
+.hero-btn-reserve:active {
+    transform: translateY(-1px) scale(0.98);
+    transition: all 0.1s ease;
+}
+
+/* ボタン内のテキストとアイコン */
+.hero-btn span {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.hero-btn i {
+    transition: transform 0.3s ease;
+}
+
+.hero-btn:hover i {
+    transform: translateX(4px);
+}
+
+/* Reserveボタンのアイコン間隔調整 */
+.hero-btn-reserve i {
+    margin-left: 0.75rem !important;
+}
+
+/* Menuボタンのアイコン間隔調整 */
+.hero-btn-menu i {
+    margin-left: 0.75rem !important;
+}
+
+/* ボタンのクリック時のリップル効果 */
+.hero-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 1;
+}
+
+.hero-btn:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* ミニマルなボタンスタイル（既存のスタイルを保持） */
 .minimal-btn {
     background: transparent;
     border: 1px solid #292524;
@@ -122,9 +277,13 @@
 
 /* ヘッダーナビゲーションの視認性向上 */
 .nav-link {
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.9);
+    text-shadow: none !important;
     transition: all 0.3s ease;
     position: relative;
+    color: #292524 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
 }
 
 .nav-link::after {
@@ -141,6 +300,36 @@
 .nav-link:hover::after,
 .nav-link:focus::after {
     width: 100%;
+}
+
+.nav-link:hover {
+    color: #0c0a09 !important;
+}
+
+/* ナビゲーション全体の確実な表示 */
+nav {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+nav a {
+    color: #292524 !important;
+    text-decoration: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* モバイルメニューボタンの確実な表示 */
+#mobile-menu-btn {
+    color: #292524 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+#mobile-menu-btn i {
+    color: #292524 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 /* フォーム要素のスタイリング */
@@ -258,6 +447,97 @@ select:focus {
     /* ダークモードスタイルをここに追加 */
 }
 
+/* PC表示での確実なレイアウト制御 */
+@media (min-width: 768px) {
+    /* ナビゲーションの確実な表示 */
+    .nav-glass .hidden.md\\:flex,
+    .nav-glass #desktop-menu {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    /* モバイルメニューボタンの非表示 */
+    #mobile-menu-btn {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    
+    /* モバイルメニューボタンの親要素の非表示 */
+    .flex-shrink-0.md\\:hidden {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    
+    /* グリッドレイアウトの確実な適用 */
+    .grid.md\\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+    
+    .grid.md\\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+    
+    .grid.lg\\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+    
+    /* フレックスレイアウトの確実な適用 */
+    .flex.md\\:flex-row {
+        flex-direction: row !important;
+    }
+    
+    /* パディングの確実な適用 */
+    .lg\\:px-8 {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+    }
+    
+    /* PC表示での強制制御 */
+    body {
+        min-width: 768px;
+    }
+    
+    /* モバイルメニューの完全な非表示 */
+    #mobile-menu {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    
+    /* PC表示でのアニメーション最適化 */
+    .menu-card {
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        will-change: transform, opacity;
+    }
+    
+    .menu-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* AOSアニメーションの最適化 */
+    [data-aos] {
+        transition-duration: 0.6s !important;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
+    
+    /* Menuセクションのアニメーション遅延調整 */
+    #menu .menu-card[data-aos-delay="0"] {
+        animation-delay: 0ms !important;
+    }
+    
+    #menu .menu-card[data-aos-delay="50"] {
+        animation-delay: 50ms !important;
+    }
+    
+    #menu .menu-card[data-aos-delay="100"] {
+        animation-delay: 100ms !important;
+    }
+}
+
 /* レスポンシブデザインの追加調整 */
 @media (max-width: 768px) {
     .hero-subtitle {
@@ -278,6 +558,21 @@ select:focus {
     
     .menu-card {
         margin-bottom: 1rem;
+    }
+    
+    /* モバイルでのヒーローボタン調整 */
+    .hero-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+    }
+    
+    .hero-btn:hover {
+        transform: translateY(-2px) scale(1.01);
+    }
+    
+    .hero-btn i {
+        font-size: 0.75rem;
+        margin-left: 0.5rem;
     }
 }
 

@@ -39,27 +39,22 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     
-    <!-- Critical CSS (inline for performance) -->
-    <link rel="stylesheet" href="css/critical.css" inline>
+    <!-- Critical CSS -->
+    <link rel="stylesheet" href="css/critical.css">
     
-    <!-- Main styles (async loading) -->
-    <link rel="preload" href="css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="css/main.css"></noscript>
+    <!-- Main styles -->
+    <link rel="stylesheet" href="css/main.css">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com" defer></script>
+    <!-- Tailwind CSS CDN を削除 - カスタムCSSに完全移行 -->
     
-    <!-- Google Fonts (optimized loading) -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome (async loading) -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- AOS Animation (async loading) -->
-    <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"></noscript>
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     
     <!-- 構造化データ -->
     <script type="application/ld+json">
@@ -115,7 +110,7 @@
                 <div class="flex items-center flex-shrink-0">
                     <h1 class="nav-link text-3xl font-serif font-light text-stone-800 tracking-wide">Café Serenity</h1>
                 </div>
-                <div class="hidden md:flex space-x-12">
+                <div class="hidden md:flex space-x-12" id="desktop-menu">
                     <a href="#home" class="nav-link text-stone-800 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase font-medium">Home</a>
                     <a href="#menu" class="nav-link text-stone-800 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase font-medium">Menu</a>
                     <a href="#about" class="nav-link text-stone-800 hover:text-stone-900 transition-colors duration-300 text-sm tracking-wide uppercase font-medium">About</a>
@@ -160,14 +155,17 @@
             </p>
             
             <div class="flex flex-col sm:flex-row gap-6 justify-center" data-aos="fade-up" data-aos-delay="400">
-                <a href="#menu" class="px-12 py-4 text-lg tracking-wide uppercase bg-white/20 backdrop-blur-sm border border-white/30 text-white hover:bg-white/30 hover:border-white/50 transition-all duration-300">
+                <a href="#menu" class="hero-btn hero-btn-menu px-12 py-4 text-lg tracking-wide uppercase">
                     <span class="flex items-center justify-center">
                         Menu
-                        <i class="fas fa-arrow-right ml-3 group-hover:translate-x-1 transition-transform"></i>
+                        <i class="fas fa-arrow-right ml-3"></i>
                     </span>
                 </a>
-                <a href="#contact" class="px-12 py-4 text-lg tracking-wide uppercase bg-stone-800/80 backdrop-blur-sm text-white hover:bg-stone-700/90 hover:text-white transition-all duration-300 border border-stone-600/50 hover:border-stone-500/70 shadow-lg hover:shadow-xl">
-                    Reserve
+                <a href="#contact" class="hero-btn hero-btn-reserve px-12 py-4 text-lg tracking-wide uppercase">
+                    <span class="flex items-center justify-center">
+                        Reserve
+                        <i class="fas fa-calendar-alt ml-4"></i>
+                    </span>
                 </a>
             </div>
         </div>
@@ -214,7 +212,7 @@
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
                 <!-- Coffee -->
-                <div class="menu-card bg-stone-50 p-8" data-aos="fade-up">
+                <div class="menu-card bg-stone-50 p-8" data-aos="fade-up" data-aos-delay="0">
                     <h3 class="text-2xl font-serif font-light text-stone-800 mb-8">Coffee</h3>
                     <ul class="space-y-6">
                         <li class="flex justify-between items-center py-4 border-b border-stone-200">
@@ -249,7 +247,7 @@
                 </div>
 
                 <!-- Tea -->
-                <div class="menu-card bg-stone-50 p-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="menu-card bg-stone-50 p-8" data-aos="fade-up" data-aos-delay="50">
                     <h3 class="text-2xl font-serif font-light text-stone-800 mb-8">Tea</h3>
                     <ul class="space-y-6">
                         <li class="flex justify-between items-center py-4 border-b border-stone-200">
@@ -284,7 +282,7 @@
                 </div>
 
                 <!-- Food -->
-                <div class="menu-card bg-stone-50 p-8" data-aos="fade-up" data-aos-delay="200">
+                <div class="menu-card bg-stone-50 p-8" data-aos="fade-up" data-aos-delay="100">
                     <h3 class="text-2xl font-serif font-light text-stone-800 mb-8">Food</h3>
                     <ul class="space-y-6">
                         <li class="flex justify-between items-center py-4 border-b border-stone-200">

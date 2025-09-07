@@ -3,6 +3,76 @@
  * モジュール化されたコードで保守性を向上
  */
 
+// ヒーローボタンアニメーション管理
+class HeroButtonAnimations {
+    constructor() {
+        this.heroButtons = document.querySelectorAll('.hero-btn');
+        this.init();
+    }
+
+    init() {
+        if (!this.heroButtons.length) return;
+        
+        this.heroButtons.forEach(button => {
+            this.addClickAnimation(button);
+            this.addHoverEffects(button);
+        });
+    }
+
+    addClickAnimation(button) {
+        button.addEventListener('click', (e) => {
+            // クリック時のリップル効果
+            this.createRippleEffect(e, button);
+            
+            // ボタンの一時的な無効化（ダブルクリック防止）
+            button.style.pointerEvents = 'none';
+            setTimeout(() => {
+                button.style.pointerEvents = 'auto';
+            }, 300);
+        });
+    }
+
+    createRippleEffect(event, button) {
+        const ripple = document.createElement('span');
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            left: ${x}px;
+            top: ${y}px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s ease-out;
+            pointer-events: none;
+            z-index: 1;
+        `;
+        
+        button.appendChild(ripple);
+        
+        // アニメーション完了後に要素を削除
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    }
+
+    addHoverEffects(button) {
+        // ホバー時の音響効果（オプション）
+        button.addEventListener('mouseenter', () => {
+            button.style.transform = 'translateY(-3px) scale(1.02)';
+        });
+        
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = 'translateY(0) scale(1)';
+        });
+    }
+}
+
 // 定数定義
 const CONFIG = {
     SCROLL_THRESHOLD: 300,
@@ -143,14 +213,26 @@ class ScrollEffects {
         this.sections = document.querySelectorAll('section[id]');
         this.navLinks = document.querySelectorAll('nav a[href^="#"]');
         
+        // パフォーマンス最適化のための変数
+        this.isScrolling = false;
+        this.lastScrollY = 0;
+        this.currentActiveSection = '';
+        this.scrollTopBtnVisible = false;
+        
         this.init();
     }
 
     init() {
-        // スクロールイベント（デバウンス付き）
-        window.addEventListener('scroll', Utils.debounce(() => {
-            this.handleScroll();
-        }, CONFIG.DEBOUNCE_DELAY));
+        // スクロールイベント（requestAnimationFrameで最適化）
+        window.addEventListener('scroll', () => {
+            if (!this.isScrolling) {
+                requestAnimationFrame(() => {
+                    this.handleScroll();
+                    this.isScrolling = false;
+                });
+                this.isScrolling = true;
+            }
+        });
         
         // スクロールトップボタン
         if (this.scrollTopBtn) {
@@ -172,45 +254,61 @@ class ScrollEffects {
     handleScroll() {
         const scrollY = window.pageYOffset;
         
-        // スクロールトップボタンの表示制御
+        // スクロールトップボタンの表示制御（変更時のみ実行）
         if (this.scrollTopBtn) {
-            Utils.toggleVisibility(this.scrollTopBtn, scrollY > CONFIG.SCROLL_THRESHOLD);
+            const shouldShow = scrollY > CONFIG.SCROLL_THRESHOLD;
+            if (shouldShow !== this.scrollTopBtnVisible) {
+                Utils.toggleVisibility(this.scrollTopBtn, shouldShow);
+                this.scrollTopBtnVisible = shouldShow;
+            }
         }
         
-        // パララックス効果
-        this.updateParallax(scrollY);
+        // パララックス効果（変更時のみ実行）
+        if (Math.abs(scrollY - this.lastScrollY) > 5) {
+            this.updateParallax(scrollY);
+            this.lastScrollY = scrollY;
+        }
         
-        // ナビゲーションのアクティブ状態
-        this.updateActiveNavigation();
+        // ナビゲーションのアクティブ状態（変更時のみ実行）
+        this.updateActiveNavigation(scrollY);
     }
 
     updateParallax(scrollY) {
+        // CSS変数を使用してパフォーマンスを向上
         this.parallaxElements.forEach(element => {
             const speed = parseFloat(element.dataset.speed) || 0.5;
             const yPos = -(scrollY * speed);
-            element.style.transform = `translateY(${yPos}px)`;
+            element.style.setProperty('--parallax-y', `${yPos}px`);
         });
     }
 
-    updateActiveNavigation() {
+    updateActiveNavigation(scrollY) {
         let current = '';
         
         this.sections.forEach(section => {
             const sectionTop = section.offsetTop - 100;
-            if (window.pageYOffset >= sectionTop) {
+            if (scrollY >= sectionTop) {
                 current = section.getAttribute('id');
             }
         });
         
-        this.navLinks.forEach(link => {
-            link.classList.remove('text-amber-600', 'font-semibold');
-            link.classList.add('text-stone-800');
+        // アクティブセクションが変更された場合のみ更新
+        if (current !== this.currentActiveSection) {
+            this.navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                const isActive = href === `#${current}`;
+                
+                if (isActive) {
+                    link.classList.remove('text-stone-800');
+                    link.classList.add('text-amber-600', 'font-semibold');
+                } else {
+                    link.classList.remove('text-amber-600', 'font-semibold');
+                    link.classList.add('text-stone-800');
+                }
+            });
             
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.remove('text-stone-800');
-                link.classList.add('text-amber-600', 'font-semibold');
-            }
-        });
+            this.currentActiveSection = current;
+        }
     }
 }
 
@@ -415,23 +513,219 @@ class Accessibility {
     }
 }
 
-// 初期化
-document.addEventListener('DOMContentLoaded', () => {
-    // AOS初期化
-    if (typeof AOS !== 'undefined') {
-        AOS.init({
-            duration: CONFIG.ANIMATION_DURATION,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 100
-        });
+// レスポンシブ制御クラス
+class ResponsiveController {
+    constructor() {
+        this.mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        this.mobileMenu = document.getElementById('mobile-menu');
+        this.desktopMenu = document.getElementById('desktop-menu');
+        this.currentBreakpoint = this.getCurrentBreakpoint();
+        
+        this.init();
+    }
+
+    init() {
+        // 初期実行
+        this.updateNavigation();
+        
+        // リサイズ時の実行（デバウンス付き）
+        window.addEventListener('resize', Utils.debounce(() => {
+            const newBreakpoint = this.getCurrentBreakpoint();
+            if (newBreakpoint !== this.currentBreakpoint) {
+                this.currentBreakpoint = newBreakpoint;
+                this.updateNavigation();
+            }
+        }, 150));
+        
+        // PC表示での強制制御
+        if (this.currentBreakpoint === 'desktop') {
+            this.forceDesktopLayout();
+        }
+    }
+
+    getCurrentBreakpoint() {
+        return window.innerWidth < CONFIG.MOBILE_BREAKPOINT ? 'mobile' : 'desktop';
+    }
+
+    updateNavigation() {
+        const isMobile = this.currentBreakpoint === 'mobile';
+        
+        if (isMobile) {
+            // モバイル表示
+            this.showMobileMenu();
+            this.hideDesktopMenu();
+        } else {
+            // PC表示
+            this.hideMobileMenu();
+            this.showDesktopMenu();
+            this.closeMobileMenu();
+        }
+        
+        // PC表示での確実な表示制御
+        if (!isMobile) {
+            // デスクトップメニューを強制的に表示
+            if (this.desktopMenu) {
+                this.desktopMenu.style.display = 'flex';
+                this.desktopMenu.style.visibility = 'visible';
+                this.desktopMenu.style.opacity = '1';
+                this.desktopMenu.classList.remove('hidden');
+            }
+            
+            // モバイルメニューボタンを非表示
+            if (this.mobileMenuBtn) {
+                this.mobileMenuBtn.style.display = 'none';
+                this.mobileMenuBtn.style.visibility = 'hidden';
+                this.mobileMenuBtn.style.opacity = '0';
+                this.mobileMenuBtn.classList.add('md:hidden');
+            }
+        }
+    }
+
+    showMobileMenu() {
+        if (this.mobileMenuBtn) {
+            this.mobileMenuBtn.classList.remove('hidden');
+            this.mobileMenuBtn.style.display = 'block';
+        }
+    }
+
+    hideMobileMenu() {
+        if (this.mobileMenuBtn) {
+            this.mobileMenuBtn.classList.add('hidden');
+            this.mobileMenuBtn.style.display = 'none';
+        }
+    }
+
+    showDesktopMenu() {
+        if (this.desktopMenu) {
+            this.desktopMenu.classList.remove('hidden');
+            this.desktopMenu.style.display = 'flex';
+        }
+    }
+
+    hideDesktopMenu() {
+        if (this.desktopMenu) {
+            this.desktopMenu.classList.add('hidden');
+            this.desktopMenu.style.display = 'none';
+        }
+    }
+
+    closeMobileMenu() {
+        if (this.mobileMenu) {
+            this.mobileMenu.classList.add('hidden');
+            this.mobileMenu.setAttribute('aria-hidden', 'true');
+        }
     }
     
+    forceDesktopLayout() {
+        // PC表示での強制レイアウト制御
+        if (this.desktopMenu) {
+            this.desktopMenu.style.display = 'flex';
+            this.desktopMenu.style.visibility = 'visible';
+            this.desktopMenu.style.opacity = '1';
+            this.desktopMenu.classList.remove('hidden');
+            this.desktopMenu.classList.add('md:flex');
+        }
+        
+        if (this.mobileMenuBtn) {
+            this.mobileMenuBtn.style.display = 'none';
+            this.mobileMenuBtn.style.visibility = 'hidden';
+            this.mobileMenuBtn.style.opacity = '0';
+            this.mobileMenuBtn.classList.add('md:hidden');
+        }
+        
+        if (this.mobileMenu) {
+            this.mobileMenu.classList.add('hidden');
+            this.mobileMenu.setAttribute('aria-hidden', 'true');
+        }
+        
+        // グリッドレイアウトの強制適用
+        const grids = document.querySelectorAll('.grid');
+        grids.forEach(grid => {
+            if (grid.classList.contains('md:grid-cols-2')) {
+                grid.style.gridTemplateColumns = 'repeat(2, minmax(0, 1fr))';
+            }
+            if (grid.classList.contains('md:grid-cols-3')) {
+                grid.style.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
+            }
+            if (grid.classList.contains('lg:grid-cols-3')) {
+                grid.style.gridTemplateColumns = 'repeat(3, minmax(0, 1fr))';
+            }
+        });
+        
+        // フレックスレイアウトの強制適用
+        const flexContainers = document.querySelectorAll('.flex');
+        flexContainers.forEach(container => {
+            if (container.classList.contains('md:flex-row')) {
+                container.style.flexDirection = 'row';
+            }
+        });
+        
+        // PC表示でのアニメーション最適化
+        this.optimizeAnimationsForDesktop();
+    }
+    
+    optimizeAnimationsForDesktop() {
+        // Menuセクションのアニメーション最適化
+        const menuCards = document.querySelectorAll('#menu .menu-card');
+        menuCards.forEach((card, index) => {
+            // PC表示では即座にアニメーションを実行
+            card.style.transitionDelay = `${index * 50}ms`;
+            card.style.transitionDuration = '0.6s';
+            
+            // AOSの遅延を調整
+            if (card.hasAttribute('data-aos-delay')) {
+                const delay = parseInt(card.getAttribute('data-aos-delay'));
+                card.setAttribute('data-aos-delay', Math.min(delay, 100));
+            }
+        });
+        
+        // AOSライブラリの再初期化（PC表示用）
+        if (typeof AOS !== 'undefined') {
+            setTimeout(() => {
+                AOS.refresh();
+            }, 200);
+        }
+    }
+}
+
+// 初期化
+document.addEventListener('DOMContentLoaded', () => {
     // 各モジュールの初期化
+    new HeroButtonAnimations();
+    new ResponsiveController();
     new MobileMenu();
     new ScrollEffects();
     new ContactForm();
     new Accessibility();
+    
+    // AOS初期化（レスポンシブ対応）
+    if (typeof AOS !== 'undefined') {
+        const isMobile = window.innerWidth < CONFIG.MOBILE_BREAKPOINT;
+        
+        AOS.init({
+            duration: isMobile ? CONFIG.ANIMATION_DURATION : 600, // PC表示では短縮
+            easing: 'ease-in-out',
+            once: true,
+            offset: isMobile ? 100 : 50, // PC表示では早めに発動
+            delay: isMobile ? 0 : 0, // PC表示では遅延なし
+            disable: false,
+            startEvent: 'DOMContentLoaded',
+            initClassName: 'aos-init',
+            animatedClassName: 'aos-animate',
+            useClassNames: false,
+            disableMutationObserver: false,
+            debounceDelay: 50,
+            throttleDelay: 99
+        });
+        
+        // PC表示での追加設定
+        if (!isMobile) {
+            // PC表示では即座にアニメーションを実行
+            setTimeout(() => {
+                AOS.refresh();
+            }, 100);
+        }
+    }
     
     // パフォーマンス最適化：画像の遅延読み込み
     if ('loading' in HTMLImageElement.prototype) {
