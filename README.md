@@ -2,7 +2,7 @@
 
 ## 📋 作品概要
 
-**Café Serenity**は、「静寂と安らぎ」をコンセプトに、シンプルで洗練されたデザインを追求しました。
+「静寂と安らぎ」をコンセプトに、シンプルで洗練されたデザインを追求しました。
 
 ## ✨ デザインのこだわりポイント
 
@@ -35,7 +35,7 @@
 
 ```bash
 # プロジェクトをクローン
-git clone [repository-url]
+git clone https://github.com/rin-teaholic/cafe-serenity.git
 
 # ブラウザで開く
 open index.html
@@ -59,5 +59,16 @@ open index.html
 **「シンプルだからこそ美しい」**  
 余計な装飾を排除し、本質的な情報と機能に集中することで、  
 ユーザーにとって使いやすく、美しいWebサイトを実現しました。
+
+## 📞 お問い合わせ
+
+このプロジェクトについてご質問やご相談がございましたら、お気軽にお問い合わせください。
+
+---
+
+**開発者**: Rin  
+**GitHub**: [@rin-teaholic](https://github.com/rin-teaholic)  
+**ライセンス**: MIT License
+
 
 **Café Serenity** - 静寂と安らぎを提供する、心の落ち着く空間
